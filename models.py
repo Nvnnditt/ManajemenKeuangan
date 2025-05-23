@@ -1,16 +1,17 @@
+from datetime import datetime
+
 def tambah_transaksi(data, kategori, jenis, jumlah):
-    from datetime import datetime
     transaksi = {
         "tanggal": datetime.now().strftime("%Y-%m-%d"),
-        "kategori": kategori,
-        "jenis": jenis,
+        "kategori": kategori.strip().title(),
+        "jenis": jenis.title(),
         "jumlah": int(jumlah)
     }
     data.append(transaksi)
-    return data
+    return transaksi
 
 def hitung_saldo(data):
-    saldo = 0
-    for d in data:
-        saldo += d["jumlah"] if d["jenis"] == "Pemasukan" else -d["jumlah"]
-    return saldo
+    return sum(d["jumlah"] if d["jenis"] == "Pemasukan" else -d["jumlah"] for d in data)
+
+def get_kategori(data, jenis="Pemasukan"):
+    return sorted(list({d["kategori"] for d in data if d["jenis"] == jenis}))

@@ -1,6 +1,7 @@
 # main.py
 import tkinter as tk
 from ui.history_ui import HistoryView
+from ui.pemasukan_ui import PemasukanView
 from storage import load_data
 
 class App(tk.Tk):
@@ -32,7 +33,7 @@ class App(tk.Tk):
         # Tombol navigasi
         buttons = [
             ("History", self.show_history),
-            ("Pemasukan", self.show_dummy),
+            ("Pemasukan", self.show_pemasukan),
             ("Pengeluaran", self.show_dummy),
             ("Bagan", self.show_dummy),
             ("Kalkulator", self.show_dummy),
@@ -66,6 +67,11 @@ class App(tk.Tk):
     def show_history(self):
         self.clear_content()
         view = HistoryView(self.content, self.data)
+        view.pack(fill="both", expand=True)
+
+    def show_pemasukan(self):
+        self.clear_content()
+        view = PemasukanView(self.content, self.data)
         view.pack(fill="both", expand=True)
 
     def show_dummy(self):
